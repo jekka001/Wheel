@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet logicalFilePath="3-test-data"
+               id="1-insert-pool-table" author="y.z.">
+        <comment>insert pool table</comment>
+        <sql>
+            INSERT INTO "line" (number, win_positions)
+            VALUES (1, '0,1,2'),
+                   (2, '3,4,5'),
+                   (3, '6,7,8'),
+                   (4, '0,3,6'),
+                   (5, '1,4,7'),
+                   (6, '2,5,8');
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="3-test-data"
+               id="2-insert-role-table" author="y.z.">
+        <comment>insert role table</comment>
+        <sql>
+            INSERT INTO "role" (name)
+            VALUES ('User'),
+                   ('Admin');
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>

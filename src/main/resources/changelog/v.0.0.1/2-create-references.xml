@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet logicalFilePath="2-create-references"
+               id="1-create-spin-user-reference" author="y.z.">
+        <comment>create spin user reference</comment>
+        <sql>
+            ALTER TABLE "spin" ADD CONSTRAINT spin_user_fk FOREIGN KEY (user_id) REFERENCES "user" (id) ON DELETE CASCADE
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="2-create-references"
+               id="2-create-reel-spin-reference" author="y.z.">
+        <comment>create reel spin reference</comment>
+        <sql>
+            ALTER TABLE "reel" ADD CONSTRAINT reel_spin_fk FOREIGN KEY (spin_id) REFERENCES "spin" (id) ON DELETE CASCADE
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="2-create-references"
+               id="3-create-slot-reel-reference" author="y.z.">
+        <comment>create slot reel reference</comment>
+        <sql>
+            ALTER TABLE "slot" ADD CONSTRAINT slot_reel_fk FOREIGN KEY (reel_id) REFERENCES "reel" (id) ON DELETE CASCADE
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="2-create-references"
+               id="4-create-user_role-user-reference" author="y.z.">
+        <comment>create user_role user reference</comment>
+        <sql>
+            ALTER TABLE "user_role" ADD CONSTRAINT user_role_user_fk FOREIGN KEY (user_id) REFERENCES "user" (id) ON DELETE CASCADE
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="2-create-references"
+               id="5-create-user_role-role-reference" author="y.z.">
+        <comment>create user_role role reference</comment>
+        <sql>
+            ALTER TABLE "user_role" ADD CONSTRAINT user_role_role_fk FOREIGN KEY (role_id) REFERENCES "role" (id) ON DELETE CASCADE
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

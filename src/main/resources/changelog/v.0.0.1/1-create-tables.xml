@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet logicalFilePath="1-create-tables"
+               id="1-create-user-table" author="y.z.">
+        <comment>create user table</comment>
+        <sql>
+            CREATE TABLE "user"
+            (
+                id         uuid         NOT NULL DEFAULT uuid_generate_v4(),
+                login      varchar(50)  NOT NULL,
+                password   varchar(600) NOT NULL,
+                deactivate boolean      NOT NULL DEFAULT FALSE,
+                CONSTRAINT user_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="1-create-tables"
+               id="2-create-spin-table" author="y.z.">
+        <comment>create spin table</comment>
+        <sql>
+            CREATE TABLE "spin"
+            (
+                id        uuid      NOT NULL DEFAULT uuid_generate_v4(),
+                user_id   uuid      NOT NULL,
+                spin_date timestamp NOT NULL DEFAULT now(),
+                payed boolean NOT NULL DEFAULT false,
+                CONSTRAINT spin_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="1-create-tables"
+               id="3-create-reel-table" author="y.z.">
+        <comment>create reel table</comment>
+        <sql>
+            CREATE TABLE "reel"
+            (
+                id                uuid       NOT NULL DEFAULT uuid_generate_v4(),
+                position_on_wheel numeric(5) NOT NULL,
+                spin_id           uuid       NOT NULL,
+                CONSTRAINT reel_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="1-create-tables"
+               id="4-slot-table" author="y.z.">
+        <comment>create slot table</comment>
+        <sql>
+            CREATE TABLE "slot"
+            (
+                id               uuid       NOT NULL DEFAULT uuid_generate_v4(),
+                value            numeric(5) NOT NULL,
+                position_on_reel numeric(5) NOT NULL,
+                reel_id          uuid       NOT NULL,
+                CONSTRAINT slot_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="1-create-tables"
+               id="5-create-line-table" author="y.z.">
+        <comment>create line table</comment>
+        <sql>
+            CREATE TABLE "line"
+            (
+                id            uuid        NOT NULL DEFAULT uuid_generate_v4(),
+                number        numeric(5)  NOT NULL,
+                win_positions varchar(50) NOT NULL,
+                CONSTRAINT line_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet logicalFilePath="1-create-tables"
+               id="6-create-role-table" author="y.z.">
+        <comment>create role table</comment>
+        <sql>
+            CREATE TABLE "role"
+            (
+                id   uuid        NOT NULL DEFAULT uuid_generate_v4(),
+                name varchar(50) NOT NULL,
+                CONSTRAINT role_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="1-create-tables"
+               id="7-create-user_role-table" author="y.z.">
+        <comment>create user_role table</comment>
+        <sql>
+            CREATE TABLE "user_role"
+            (
+                id      uuid NOT NULL DEFAULT uuid_generate_v4(),
+                user_id uuid NOT NULL,
+                role_id uuid NOT NULL,
+                CONSTRAINT user_role_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
